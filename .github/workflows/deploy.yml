@@ -1,0 +1,28 @@
+name: 🚀 Deploy app on push
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@master
+      - name: 🔌 Build with Webpack
+      - uses: actions/setup-node@master
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run build
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: edukits.wpmudev.host
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ./site/public_html/github/
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
