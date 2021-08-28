@@ -24,6 +24,6 @@ jobs:
           remote-host: ${{ secrets.FTP_HOST }}
           remote-port: 22
           remote-path: /site/public_html/github
-          local-path: ./dist
+          local-path: .
           remote-user: ${{ secrets.FTP_USERNAME }}
           remote-password: ${{ secrets.FTP_PASSWORD }}
