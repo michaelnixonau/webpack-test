@@ -14,15 +14,16 @@ jobs:
       - name: 🔌 Build with Webpack
         uses: actions/setup-node@master
         with:
-          node-version: 12
+          node-version: 14
       - run: npm ci
       - run: npm run build
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        uses: milanmk/actions-file-deployer@1.2
         with:
-          server: edukits.wpmudev.host
-          protocol: ftps
-          local-dir: ./dist/
-          server-dir: ./site/public_html/github/
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          remote-protocol: sftp
+          remote-host: ${{ secrets.FTP_HOST }}
+          remote-port: 22
+          remote-path: ./site/public_html/github
+          local-path: ./dist
+          remote-user: ${{ secrets.FTP_USERNAME }}
+          remote-password: ${{ secrets.FTP_PASSWORD }}
