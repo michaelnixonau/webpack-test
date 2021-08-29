@@ -18,22 +18,23 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: 📂 Sync files
-        # uses: sand4rt/ftp-deployer@v1.3
-        # with:
-          # sftp: true
-          # host: ${{ secrets.FTP_HOST }}
-          # port: 22
-          # username: ${{ secrets.FTP_USERNAME }}
-          # password: ${{ secrets.FTP_PASSWORD }}
-          # remote_folder: site/public_html/github
-          # local_folder: dist
-          # cleanup: false
         uses: milanmk/actions-file-deployer@1.2
         with:
           remote-protocol: sftp
           remote-host: ${{ secrets.FTP_HOST }}
           remote-port: 22
-          remote-path: site/public_html/github
-          local-path: dist
+          remote-path: /site/public_html/github
+          local-path: .
           remote-user: ${{ secrets.FTP_USERNAME }}
           remote-password: ${{ secrets.FTP_PASSWORD }}
+          debug: true
+        # uses: sand4rt/ftp-deployer@v1.3
+        # with:
+        #   sftp: true
+        #   host: ${{ secrets.FTP_HOST }}
+        #   port: 22
+        #   username: ${{ secrets.FTP_USERNAME }}
+        #   password: ${{ secrets.FTP_PASSWORD }}
+        #   remote_folder: site/public_html/github
+        #   local_folder: dist
+        #   cleanup: false
